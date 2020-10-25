@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "40835bec-06b9-4521-9f73-42cf322e97a1",
+		"_postman_id": "be0c666d-976e-4f39-a0eb-f861f3859627",
 		"name": "TestCollections",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "adfa781b-009b-43ce-ae2d-aa5d84787f43",
+						"id": "26800b3a-0ac4-4d45-a396-39b8458cffbf",
 						"exec": [
 							"// to manually change id right click the collection TestCollections > Edit, navigate to the Variables tab then modify id. Alternatively click on Pre-request Script\r",
 							"// right next to the Tests tab.\r",
@@ -65,7 +65,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "53b338cb-ffa2-42d0-810d-18d831673cf2",
+						"id": "4cabdc79-3050-4d4d-9686-4a137f8f7a09",
 						"exec": [
 							"// change values here\r",
 							"const userId = Math.floor(Math.random() * (48 - 3 + 1)) + 3; // generates random integer between 3 and 48\r",
@@ -75,8 +75,8 @@
 							"\r",
 							"pm.collectionVariables.set('userId', userId); // integer // note toself, number = Long, integer is not a type in postman\r",
 							"pm.collectionVariables.set('id', 101); // integer // maybe bug but it appears to always return 101 for id so maybe new entries are created on server incrementally\r",
-							"pm.collectionVariables.set('title', 'test title @' + title); // string\r",
-							"pm.collectionVariables.set('body', 'test body string' + body); // string\r",
+							"pm.collectionVariables.set('title', 'test title @ ' + title); // string\r",
+							"pm.collectionVariables.set('body', 'test body string ' + body); // string\r",
 							"\r",
 							"pm.test(\"Check userId type before POST\", () => {\r",
 							"    pm.expect(pm.collectionVariables.get('userId')).to.be.eql(parseInt(pm.collectionVariables.get('userId'))); // should be integer\r",
@@ -137,7 +137,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8f069050-a7c0-4ee0-a943-60487fd1f3da",
+						"id": "1a28776e-39ad-4a21-a060-77cabbbd3401",
 						"exec": [
 							"const schema = {\r",
 							"    \"type\": \"object\",\r",
@@ -172,7 +172,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "be50d0bd-bb12-4692-9718-49353c296968",
+						"id": "f1f817ee-734d-4857-bb40-ee975efca135",
 						"exec": [
 							"const id = Math.floor(Math.random() * (100 - 1 + 1)) + 1; // generates random integer between 1 and 100\r",
 							"\r",
@@ -217,7 +217,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "a10ab849-6284-4360-bf88-1504af57318a",
+						"id": "4411f946-93c4-47e2-8633-0a83abc537da",
 						"exec": [
 							"// change values here\r",
 							"// userId should be unknown unless it was inferred from an earlier GET request\r",
@@ -227,8 +227,8 @@
 							"const body = uuid.v4();\r",
 							"\r",
 							"pm.collectionVariables.set('id', id); // integer\r",
-							"pm.collectionVariables.set('title', 'test title @' + title); // string\r",
-							"pm.collectionVariables.set('body', 'test body string' + body); // string\r",
+							"pm.collectionVariables.set('title', 'test title @ ' + title); // string\r",
+							"pm.collectionVariables.set('body', 'test body string ' + body); // string\r",
 							"\r",
 							"pm.test(\"Check id type before PUT\", () => {\r",
 							"    pm.expect(pm.collectionVariables.get('id')).to.be.eql(parseInt(pm.collectionVariables.get('id'))); // should be integer\r",
@@ -246,7 +246,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "bcda1241-b19d-4cff-b1e5-f91788f778e7",
+						"id": "88f79364-466d-4507-8119-dc027c3ca797",
 						"exec": [
 							"// userId should be unknown unless it was inferred from an earlier GET request\r",
 							"// Scenario: Updating a entry\r",
@@ -323,7 +323,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8c312f06-4657-406f-ad61-3a50c33c0587",
+						"id": "062aa0dd-0c8a-4c8f-b1d0-f749b19c1564",
 						"exec": [
 							"// Scenario: Deleting an entry\r",
 							"// When I delete an entry by id\r",
@@ -338,7 +338,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "f3ca4ee1-99bd-4271-999e-48b0bc5b02e6",
+						"id": "e3e73cbf-cb1f-47c0-880c-8fe1161947dc",
 						"exec": [
 							"const id = Math.floor(Math.random() * (100 - 1 + 1)) + 1; // generates random integer between 1 and 100\r",
 							"\r",
@@ -377,7 +377,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d68d217e-6b2d-4125-8112-7c11e4835c26",
+						"id": "184f10eb-1004-47da-8b77-e81c14ada28f",
 						"exec": [
 							"pm.test(\"Status test\", function () {\r",
 							"    pm.response.to.have.status(404);\r",
@@ -389,7 +389,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "036f57b8-b187-456d-b562-46ddb74db954",
+						"id": "07383065-7e9f-4e78-91f1-fe6c7d8e3abc",
 						"exec": [
 							"pm.collectionVariables.set('negativeGet_id', 'idontexist'); // should fail if id is a string\r",
 							"\r",
@@ -425,7 +425,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "3c5c7e6d-cd9c-4eb1-80b0-f573ed3a9631",
+				"id": "c360b2e9-fae7-4872-bc9a-063b41b05c80",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -435,7 +435,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "21a3780a-86da-4da9-971b-215e9955969a",
+				"id": "8ae69d19-64fc-4eb7-a39f-5ed0a60967f6",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -445,32 +445,32 @@
 	],
 	"variable": [
 		{
-			"id": "637d3d69-afee-46c7-b6d4-5f8013d6c4f1",
+			"id": "bf0b7c8a-7058-4f07-aa9f-ecfb9ae31f08",
 			"key": "baseUrl",
 			"value": "https://jsonplaceholder.typicode.com/posts"
 		},
 		{
-			"id": "54e68a4f-167e-4b78-ad14-eeae825d793b",
+			"id": "4d8eae19-a408-467d-bd2d-642d4501c40a",
 			"key": "negativeGet_id",
 			"value": "idontexist"
 		},
 		{
-			"id": "146eb7ec-a504-46f5-9f54-7a948e80eade",
+			"id": "7f84137b-6a0c-474e-a33e-e87f09e71e53",
 			"key": "id",
 			"value": "1"
 		},
 		{
-			"id": "fa224219-8ff3-448c-bb18-a886e03481b1",
+			"id": "501ca75e-ce06-437a-8511-d4cdd22c2e40",
 			"key": "userId",
 			"value": "1"
 		},
 		{
-			"id": "c2dfccca-52c5-4681-b6cc-0a0aafc7d3b4",
+			"id": "7792341b-588c-4ecd-b7b6-ec829fef72c4",
 			"key": "title",
 			"value": "\"dwqrfqw\""
 		},
 		{
-			"id": "a5e2ab1d-4ce3-4320-ae48-4fc7fa9599e2",
+			"id": "97316ece-220f-4063-b443-6d61c97406bc",
 			"key": "body",
 			"value": "\"abc\""
 		}
