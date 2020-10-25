@@ -7,5 +7,5 @@ Since the free version of Postman has no git integration I just chose to just ex
 
 How would you run your tests in a DevOps pipeline?
   - There is a way to run Postman tests in a DevOps pipeline. Using newman, a tool to run exported Postman collections in the command line. So basically any sort of unit testing software that supports running tests from the command line will work.
-  - It's also possible to integrate it with your continuous integration servers and build systems.
+  - It's also possible to integrate newman with your continuous integration servers and build systems.
   - Simply add it to an existing pipeline or create a new one for it.
