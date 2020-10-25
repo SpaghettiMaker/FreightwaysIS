@@ -1,0 +1,472 @@
+{
+	"info": {
+		"_postman_id": "40835bec-06b9-4521-9f73-42cf322e97a1",
+		"name": "TestCollections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "adfa781b-009b-43ce-ae2d-aa5d84787f43",
+						"exec": [
+							"// to change id right click the collection TestCollections > Edit, navigate to the Variables tab then modify id. Alternatively click on Pre-request Script\r",
+							"// right next to the Tests tab.\r",
+							"\r",
+							"//Scenario: Creating a new entry\r",
+							"//Given I am adding a new entry i.e. POST it\r",
+							"//Then after creating, verify that the new entry is present\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"userId\": {\"type\": \"integer\"},\r",
+							"        \"id\": {\"type\": \"integer\"},\r",
+							"        \"title\": {\"type\": \"string\"},\r",
+							"        \"body\": {\"type\": \"string\"}\r",
+							"    },\r",
+							"    \"required\": [\"userId\", \"id\", \"title\", \"body\"]\r",
+							"}\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201); // 201 create success\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Schema\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test data value of the response userId to be same as input userId\", () => {\r",
+							"    pm.expect(jsonData.userId).to.be.eql(parseInt(pm.collectionVariables.get('create_userId')));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test data value of the response id to be same as input id\", () => {\r",
+							"    pm.expect(jsonData.id).to.be.eql(parseInt(pm.collectionVariables.get('create_id')));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test data value of the response title to be same as input title\", () => {\r",
+							"    pm.expect(jsonData.title).to.be.eql(pm.collectionVariables.get('create_title'));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test data value of the response body to be same as input body\", () => {\r",
+							"    pm.expect(jsonData.body).to.be.eql(pm.collectionVariables.get('create_body'));\r",
+							"});\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "53b338cb-ffa2-42d0-810d-18d831673cf2",
+						"exec": [
+							"// change values here\r",
+							"pm.collectionVariables.set('create_userId', 113); // integer // note toself, number = Long, integer is not a type in postman\r",
+							"pm.collectionVariables.set('create_id', 104); // integer // appears to always return 101 for id\r",
+							"pm.collectionVariables.set('create_title', 'thi2434ng4'); // string\r",
+							"pm.collectionVariables.set('create_body', 'eh24324'); // string\r",
+							"\r",
+							"pm.test(\"Check type before POST\", () => {\r",
+							"    pm.expect(pm.collectionVariables.get('create_userId')).to.be.eql(parseInt(pm.collectionVariables.get('create_userId'))); // should be integer\r",
+							"    pm.expect(pm.collectionVariables.get('create_id')).to.be.eql(parseInt(pm.collectionVariables.get('create_id'))); // should be integer\r",
+							"    pm.expect(typeof(pm.collectionVariables.get('create_title'))).to.be.a('string');\r",
+							"    pm.expect(typeof(pm.collectionVariables.get('create_body'))).to.be.a('string');\r",
+							"}) \r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json; charset=utf-8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": {{create_userId}},\r\n    \"id\": {{create_id}},\r\n    \"title\": \"{{create_title}}\",\r\n    \"body\": \"{{create_body}}\"\r\n}"
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReadTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f069050-a7c0-4ee0-a943-60487fd1f3da",
+						"exec": [
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"userId\": {\"type\": \"integer\"},\r",
+							"        \"id\": {\"type\": \"integer\"},\r",
+							"        \"title\": {\"type\": \"string\"},\r",
+							"        \"body\": {\"type\": \"string\"}\r",
+							"    },\r",
+							"    \"required\": [\"userId\", \"id\", \"title\", \"body\"]\r",
+							"}\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validate Schema\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test data type of the response\", () => {\r",
+							"  pm.expect(jsonData.id).to.be.eql(parseInt(pm.collectionVariables.get('read_id')));\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "be50d0bd-bb12-4692-9718-49353c296968",
+						"exec": [
+							"pm.collectionVariables.set('read_id', 20)\r",
+							"\r",
+							"pm.test(\"Check type before GET\", () => {\r",
+							"    pm.expect(pm.collectionVariables.get('read_id')).to.be.eql(parseInt(pm.collectionVariables.get('read_id'))); // should be integer\r",
+							"}) "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/{{id}}",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTest",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a10ab849-6284-4360-bf88-1504af57318a",
+						"exec": [
+							"// change values here\r",
+							"pm.collectionVariables.set('put_id', 100); // integer // appears to always return 101 for id\r",
+							"pm.collectionVariables.set('put_title', 'thi2434ng4'); // string\r",
+							"pm.collectionVariables.set('put_body', 'eh24324'); // string\r",
+							"\r",
+							"pm.test(\"Check type before PUT\", () => {\r",
+							"    pm.expect(pm.collectionVariables.get('put_id')).to.be.eql(parseInt(pm.collectionVariables.get('put_id'))); // should be integer\r",
+							"    pm.expect(typeof(pm.collectionVariables.get('put_title'))).to.be.a('string');\r",
+							"    pm.expect(typeof(pm.collectionVariables.get('put_body'))).to.be.a('string');\r",
+							"}) "
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bcda1241-b19d-4cff-b1e5-f91788f778e7",
+						"exec": [
+							"// userId should be unknown unless it was infered from an earlier GET request\r",
+							"const schema = {\r",
+							"    \"type\": \"object\",\r",
+							"    \"properties\": {\r",
+							"        \"id\": {\"type\": \"integer\"},\r",
+							"        \"title\": {\"type\": \"string\"},\r",
+							"        \"body\": {\"type\": \"string\"}\r",
+							"    },\r",
+							"    \"required\": [\"id\", \"title\", \"body\"]\r",
+							"}\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validating Schema\", () => {\r",
+							"    pm.response.to.have.jsonSchema(schema);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test data value of the response id to be same as input id\", () => {\r",
+							"    pm.expect(jsonData.id).to.be.eql(parseInt(pm.collectionVariables.get('put_id')));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test data value of the response title to be same as input title\", () => {\r",
+							"    pm.expect(jsonData.title).to.be.eql(pm.collectionVariables.get('put_title'));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Test data value of the response body to be same as input body\", () => {\r",
+							"    pm.expect(jsonData.body).to.be.eql(pm.collectionVariables.get('put_body'));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": {{put_id}},\r\n    \"title\": \"{{put_title}}\",\r\n    \"body\": \"{{put_body}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/{{put_id}}",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"{{put_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c312f06-4657-406f-ad61-3a50c33c0587",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f3ca4ee1-99bd-4271-999e-48b0bc5b02e6",
+						"exec": [
+							"pm.collectionVariables.set('delete_id', 100); // integer // appears to always return 101 for id\r",
+							"\r",
+							"pm.test(\"Check id is an integer before DELETE\", () => {\r",
+							"    pm.expect(pm.collectionVariables.get('delete_id')).to.be.eql(parseInt(pm.collectionVariables.get('delete_id'))); // should be integer\r",
+							"}) "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/{{delete_id}}",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"{{delete_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NegativeGetTest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d68d217e-6b2d-4125-8112-7c11e4835c26",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "036f57b8-b187-456d-b562-46ddb74db954",
+						"exec": [
+							"pm.collectionVariables.set('negativeGet_id', 'idontexist'); // should fail if id is a string\r",
+							"\r",
+							"pm.test(\"Check id is an invalid string before GET\", () => {\r",
+							"    pm.expect(typeof(pm.collectionVariables.get('negativeGet_id'))).to.be.a('string');\r",
+							"}) "
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/{{negativeGet_id}}",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"{{negativeGet_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3c5c7e6d-cd9c-4eb1-80b0-f573ed3a9631",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "21a3780a-86da-4da9-971b-215e9955969a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "9070cb93-eab1-41a2-ac8f-c1daf0d6eee0",
+			"key": "baseUrl",
+			"value": "https://jsonplaceholder.typicode.com/posts"
+		},
+		{
+			"id": "bbb81b42-c0f4-4e59-9fc4-8f7991c31125",
+			"key": "read_id",
+			"value": "1"
+		},
+		{
+			"id": "592f8680-4bd4-42cb-8220-3db3d76b3646",
+			"key": "create_userId",
+			"value": "2"
+		},
+		{
+			"id": "2000c9cf-b1bb-4fbd-8c57-84cb39fa57e3",
+			"key": "create_id",
+			"value": "1042"
+		},
+		{
+			"id": "5b48e780-aa1d-4337-9083-0eaabb8f2e50",
+			"key": "create_title",
+			"value": "\"101 thing\""
+		},
+		{
+			"id": "115ca53c-be0d-4835-ab92-5c04dd8c0d8e",
+			"key": "create_body",
+			"value": "\"aaa\""
+		},
+		{
+			"id": "fb71c945-2e40-4d12-ab99-f70fd870f206",
+			"key": "put_body",
+			"value": "eh24324"
+		},
+		{
+			"id": "f8594a0a-1822-4af9-9fcc-df0045f9c3eb",
+			"key": "put_id",
+			"value": "88"
+		},
+		{
+			"id": "0a7e26a0-5cf7-4795-9b31-b01ac0b3113e",
+			"key": "put_title",
+			"value": "thi2434ng4"
+		},
+		{
+			"id": "7d98cf83-ad31-484a-b0f8-05c41a6278a3",
+			"key": "delete_id",
+			"value": "4"
+		},
+		{
+			"id": "3d12ba96-984b-46ad-87d1-005909483e8c",
+			"key": "negativeGet_id",
+			"value": "idontexist"
+		},
+		{
+			"id": "c38a92c0-fec2-4b34-9dcb-8631b27518bc",
+			"key": "negativeGet_id",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
